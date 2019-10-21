@@ -22,10 +22,12 @@ func getPoster(w http.ResponseWriter, req *http.Request) {
 		panic(err)
 	}
 
-	db, err := gorm.Open("mysql", "ptlppz:123456@tcp(192.168.32.191:3306)/pintuan?charset=utf8&parseTime=True&loc=Local")
+	db, err := gorm.Open("mysql", "root:aggaer520@tcp(127.0.0.1:3306)/pintuan?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		panic(err)
 	}
+	//noinspection GoUnhandledErrorResult
+	defer db.Close()
 	key, _ := strconv.ParseInt(values["sharingKey"][0], 10, 64)
 	resp := &model.Record{}
 	db.Where(&model.Record{SharingKey: key}).First(resp)
